@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div id="main">
+    {% if send %}
+    <div id="pagelist">
+        <p>Спасибо за ваш комментарий</p>
+        <a href="{{ article.get_absolut_url }}">
+            <input type="button" value="Вернуться к новости">
+        </a>
+        <a href="{% url 'index' %}">
+            <input type="button" value="Вернуться на главную">
+        </a>
+    </div>
+    </div>
+    {% else %}
+    {% if page_details %}
+    <h1>{{ page_details.title }}</h1>
+    {% if error %}
+    <p id="error">Неверные данные капчи. Попробуйте ещё раз.</p>
+    {% endif %}
+    <div class="pagelist">
+        <a href="{% url 'news' %}">Назад</a>
+        <p>{{ page_details.body|safe }}</p>
+        <p class="date_of_published">{{ page_details.article_date }}</p>
+    </div>
+    {% else %}
+    Данной записи не существует
+    {% endif %}
+    <h1>Комментарии к записи:</h1>
+    {% if comment_list %}
+    {% for comment in comment_list %}
+    <div class="pagelist">
+        <h1 class="page_title">{{ comment.surname }} {{ comment.firstname }} {{ comment.middlename }}</h1>
+        <p class="date_of_published">{{ comment.publish_date }}</p>
+        <p>{{ comment.body }}</p>
+    </div>
+    {% endfor %}
+    {% else %}
+    Комментарии отсутствуют. Оставьте комментарий первым.
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <table class="comment_form">
+                {{ form.as_table }}
+            </table>
+            <input id="submitButton" type="submit" value="Отправить">
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+<div id="main">
+    {% if send %}
+    <p>Спасибо за ваш отзыв</p>
+    <a href="{% url 'feedback' %}">
+        <input type="button" value="Вернуться к отзывам">
+    </a>
+    <a href="{% url 'index' %}">
+        <input type="button" value="Вернуться на главную">
+    </a>
+    {% else %}
+    <h1>Ваши отзывы</h1>
+    {% if error %}
+    <p id="error">Неверные данные капчи. Попробуйте ещё раз.</p>
+    {% endif %}
+    {% if feedback_list %}
+    {% for feedback in feedback_list %}
+    <div class="pagelist">
+        <h1 class="page_title">{{ feedback.surname }} {{ feedback.firstname }} {{ feedback.middlename }}</h1>
+        <p class="date_of_published">{{ feedback.publish_date }}</p>
+        <p>{{ feedback.body }}</p>
+    </div>
+    {% endfor %}
+    {% else %}
+    Отзывы отсутствуют, Вы можете написать отзыв первым.
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <table class="feedback_form">
+                {{ form.as_table }}
+                <script async src="{% static "scripts/phoneMask.js" %}"></script>
+            </table>
+            <input id="submitButton" type="submit" value="Отправить">
+        </div>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div id="main">
+    {% if page_details %}
+    <h1>{{ page_details.name }}</h1>
+    <div class="pagelist">
+        <p>{{ page_details.text|safe }}</p>
+    </div>
+    {% else %}
+    Данной записи не существует
+    {% endif %}
+</div>
+
+{% endblock %}

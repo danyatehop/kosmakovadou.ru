@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div id="main">
+    <h1>Разработки</h1>
+    {% if develop_list %}
+    {% for develop in develop_list %}
+    <div class="page_links">
+        <a href="{{ develop.get_absolut_url }}">
+            <h1 class="page_title">{{ develop.title }}</h1>
+            <p class="date_of_published">{{ develop.develop_date }}</p>
+            <p>{{ develop.description }}</p>
+        </a>
+    </div>
+    {% endfor %}
+    {% else %}
+    У нас нет ни одной записи
+    {% endif %}
+</div>
+
+{% endblock %}

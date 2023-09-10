@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт воспитателя МБДОУ №82 г. Иркутска Космаковой Веры Александровны</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+    </style>
+</head>
+
+<body>
+    <header>
+        <div id="header">
+            <div id="logo">
+                <img src="{% static "img/avatar.jpg" %}">
+                <p id="header-text">Персональный сайт педагога дошкольного образования,</br>
+                    Космаковой Веры Александровны</p>
+            </div>
+        </div>
+        <div id="nav_panel">
+            <div id="nav_panel_links">
+                <a href="{% url 'index' %}">Главная</a>
+                <a href="{% url 'portfolio' %}">Портфолио</a>
+                <a href="{% url 'developments' %}">Разработки</a>
+                <a href="{% url 'news' %}">Новости</a>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        <div id="spoiler">
+            <hr>
+            <label for="spoiler_button">Открыть меню</label>
+            <input type="checkbox" id="spoiler_button">
+            <hr>
+            <div id="sidebar">
+                <aside class="sbarelement">
+                    {% if section_map %}
+                    {% for section in section_map %}
+                    <div class="map">
+                        <a href="{{ section.get_absolut_url }}">
+                            {{ section.name }}
+                        </a>
+                    </div>
+                    {% for page in page_map %}
+                    {% if page.section_id == section.id %}
+                    <a href="{{ page.get_absolut_url }}">
+                        {{ page.name }}
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                    {% endif %}
+                </aside>
+                <aside class="sbarelement">
+                    <div class="sidebartitle">О садике</div>
+                    <img src="{% static "img/ds82.png" %}" alt="МБДОУ г. Иркутска №82"><br />
+                    <a href="http://www.mbdou-82.ucoz.ru">Подробнее</a>
+                </aside>
+                <aside class="sbarelement">
+                    <div class="sidebartitle">О группе</div>
+                    <img src="{% static "img/child.jpeg" %}" alt="Моя группа"><br />
+                    <a href="https://fsin-atlas.ru/catalog/object/sizo1irkutsk/">Подробнее(не стоит)</a>
+                </aside>
+                <aside class="sbarelement">
+                    <a href="{% url 'feedback' %}">Обратная связь</a>
+                </aside>
+            </div>
+        </div>
+        {% block main %}{% endblock %}
+    </div>
+    <a href="#header">
+        <div id="up">⇑</div>
+        <script async src="{% static "scripts/up.js" %}"></script>
+    </a>
+    <div id="footer">
+        <div id="social">
+            <a href="https://vk.com/vera_truvera">
+                <img src="{% static "icons/VK.png" %}">
+            </a>
+            <a href="https://t.me/pros_cos">
+                <img src="{% static "icons/Telegram.png" %}">
+            </a>
+        </div>
+    </div>
+</body>
+
+
+</html>

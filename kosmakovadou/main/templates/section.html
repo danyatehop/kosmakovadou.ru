@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div id="main">
+    {% if section_list %}
+    <div class="pagelist">
+        <h1>{{ section_list.name }}</h1>
+        <p>{{ section_list.text| safe }}</p>
+        {% else %}
+        Данной записи не существует
+        {% endif %}
+        <div class="pages">
+            {% if page_list %}
+            {% for page in page_list %}
+            <div class="page_links">
+            <a href="{{ page.get_absolut_url }}">
+                <h1 class="page_title">{{ page.name }}</h1>
+                <p>{{ page.description }}</p>
+            </a>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
