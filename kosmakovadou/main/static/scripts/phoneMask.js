@@ -1,5 +1,6 @@
-let placeholder = function(e){
-    e.target.placeholder = '+7(___)-___-__-__';
+let inputClick = function(e){
+    var field = e.target;
+    field.placeholder = '+7 (___) ___-__-__';
 }
 
 let getInput = function(e){
@@ -11,18 +12,15 @@ let getInput = function(e){
 
     if (digInput[0] == 9) digInput = "7" + digInput;
 
-    console.log(digInput.length)
-
     if(digInput.length > 1)
-        resValue += "+7(" + digInput.substring(1, 4);
+        resValue += "+7 (" + digInput.substring(1, 4);
     if(digInput.length > 4)
-         resValue += ")-" + digInput.substring(4, 7);
+         resValue += ") " + digInput.substring(4, 7);
     if(digInput.length > 7)
         resValue += "-" + digInput.substring(7, 9);
     if(digInput.length > 9)
         resValue += "-" + digInput.substring(9, 11);
 
-    console.log(digInput);
     Field.value = resValue;
 }
 
@@ -31,6 +29,25 @@ let getDigInput = function(input){
     return res
 }
 
+let backBtn = function(e){
+    var field = e.target;
+    if(e.code == "Backspace" && 
+    field.selectionStart != field.value.length){  
+            var curPos = field.selectionStart;
+            setTimeout(() => {
+                field.selectionStart = field.selectionEnd = curPos - 1;
+            })
+    }
+    if(e.code == "Delete" && field.selectionStart != field.value.length){
+        var curPos = field.selectionStart;
+        setTimeout(() => {
+            field.selectionStart = field.selectionEnd = curPos;
+        })
+    }
+    else return;
+}
+
 var inputValue = document.getElementById('id_phone');
-inputValue.addEventListener('click', placeholder);
+inputValue.addEventListener('click', inputClick);
 inputValue.addEventListener('input', getInput);
+inputValue.addEventListener('keydown', backBtn);

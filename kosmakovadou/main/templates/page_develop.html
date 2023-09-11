@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block main %}
 
 <div id="main">
@@ -42,6 +42,7 @@
         <div>
             <table class="comment_form">
                 {{ form.as_table }}
+                <script async src="{% static "scripts/phoneMask.js" %}"></script>
             </table>
             <input id="submitButton" type="submit" value="Отправить">
         </div>
