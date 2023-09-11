@@ -8,8 +8,6 @@ let getInput = function(e){
     digInput = getDigInput(Field),
     resValue = "";
 
-    if (!digInput) Field.value = "";
-
     if (digInput[0] == 9) digInput = "7" + digInput;
 
     if(digInput.length > 1)
@@ -32,13 +30,14 @@ let getDigInput = function(input){
 let backBtn = function(e){
     var field = e.target;
     if(e.code == "Backspace" && 
-    field.selectionStart != field.value.length){  
-            var curPos = field.selectionStart;
-            setTimeout(() => {
-                field.selectionStart = field.selectionEnd = curPos - 1;
-            })
+        field.selectionStart != field.value.length){  
+        var curPos = field.selectionStart;
+        setTimeout(() => {
+            field.selectionStart = field.selectionEnd = curPos - 1;
+        })
     }
-    if(e.code == "Delete" && field.selectionStart != field.value.length){
+    if(e.code == "Delete" && 
+        field.selectionStart != field.value.length){
         var curPos = field.selectionStart;
         setTimeout(() => {
             field.selectionStart = field.selectionEnd = curPos;
