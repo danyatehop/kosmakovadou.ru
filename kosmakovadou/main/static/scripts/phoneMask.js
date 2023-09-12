@@ -7,7 +7,11 @@ let getInput = function(e){
     digInput = getDigInput(Field),
     resValue = "";
 
-    if (Field.selectionStart != Field.value.length) return;
+    if (Field.selectionStart != Field.value.length) {
+        if (e.data && /\D/g.test(e.data))
+            Field.value = digInput;
+        return
+    };
 
     if (digInput[0] == 9) digInput = "7" + digInput;
 
