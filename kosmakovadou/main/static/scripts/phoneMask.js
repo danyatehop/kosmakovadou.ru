@@ -1,12 +1,13 @@
 let inputClick = function(e){
-    var field = e.target;
-    field.placeholder = '+7 (___) ___-__-__';
+    e.target.placeholder = '+7 (___) ___-__-__';
 }
 
 let getInput = function(e){
     Field = e.target;
     digInput = getDigInput(Field),
     resValue = "";
+
+    if (Field.selectionStart != Field.value.length) return;
 
     if (digInput[0] == 9) digInput = "7" + digInput;
 
@@ -27,26 +28,26 @@ let getDigInput = function(input){
     return res
 }
 
-let backBtn = function(e){
-    var field = e.target;
-    if(e.code == "Backspace" && 
-        field.selectionStart != field.value.length){  
-        var curPos = field.selectionStart;
-        setTimeout(() => {
-            field.selectionStart = field.selectionEnd = curPos - 1;
-        })
-    }
-    if(e.code == "Delete" && 
-        field.selectionStart != field.value.length){
-        var curPos = field.selectionStart;
-        setTimeout(() => {
-            field.selectionStart = field.selectionEnd = curPos;
-        })
-    }
-    else return;
-}
+// let backBtn = function(e){
+//     var field = e.target;
+//     if(e.code == "Backspace" && 
+//         field.selectionStart != field.value.length){  
+//         var curPos = field.selectionStart;
+//         setTimeout(() => {
+//             field.selectionStart = field.selectionEnd = curPos - 1;
+//         })
+//     }
+//     if(e.code == "Delete" && 
+//         field.selectionStart != field.value.length){
+//         var curPos = field.selectionStart;
+//         setTimeout(() => {
+//             field.selectionStart = field.selectionEnd = curPos;
+//         })
+//     }
+//     else return;
+// }
 
 var inputValue = document.getElementById('id_phone');
 inputValue.addEventListener('click', inputClick);
 inputValue.addEventListener('input', getInput);
-inputValue.addEventListener('keydown', backBtn);
+// inputValue.addEventListener('keydown', backBtn);
